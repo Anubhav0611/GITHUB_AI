@@ -1,0 +1,616 @@
+/* ========================
+   CSS Variables
+   ======================== */
+   :root {
+    --background-color: #ffffff;
+    --text-color: #2f2e2e;
+    --container-bg: #ffffff;
+    --sidebar-bg: #f4f4f5;
+    --chat-bg: #ffffff;
+    --input-bg: #f8fafc;
+    --ai-message-bg: #e5e7eb;
+    --user-message-bg: #4fd1c5;
+    --accent-color: #14b8a6;
+    --border-color: #e5e7eb;
+    --hover-bg: #d1d5db;
+    --error-red: #dc2626;
+    --success-green: #34d399;
+}
+
+/* ========================
+   Base Styles
+   ======================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+/* ========================
+   Authentication Pages
+   ======================== */
+.auth-container {
+    max-width: 440px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: var(--container-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.auth-header h2 {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    color: #525252;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background:black; /* Use theme variable for background */
+  border: 2px solid var(--border-color);
+  color: white; /* Use theme variable for text color */
+}
+
+/* Ensure text is visible when typing by adjusting color based on theme */
+:root[data-theme="light"] .auth-input {
+  color: #0c0c0c; /* Darker text for light background */
+}
+
+:root[data-theme="dark"] .auth-input,
+:root[data-theme="neon"] .auth-input {
+  color: #e0e0e0; /* Lighter text for dark background */
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: black; /* Maintain theme background on focus */
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+}
+
+/* Placeholder color should adapt to theme */
+.auth-input::placeholder {
+  color: #0b0b0b; /* Default for light theme */
+  opacity: 1; /* Ensure placeholder is fully visible */
+}
+
+:root[data-theme="light"] .auth-input::placeholder {
+  color: #4b5563; /* Slightly darker for better contrast in light theme */
+}
+
+:root[data-theme="dark"] .auth-input::placeholder,
+:root[data-theme="neon"] .auth-input::placeholder {
+  color: #a0a0a0; /* Lighter placeholder for dark/neon themes */
+}
+.auth-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.auth-button:hover {
+    background: #0d9488;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0;
+}
+
+.auth-links a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0;
+    background: transparent;
+    border: none;
+    margin-left: 0.5rem;
+}
+
+.auth-input::placeholder {
+    color: #6b7280;
+}
+
+.password-toggle {
+    color: #6b7280;
+}
+
+.password-toggle:hover {
+    color: var(--accent-color);
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: #fef2f2;
+    color: var(--error-red);
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    border: 1px solid #fca5a5;
+}
+
+.success-message {
+    text-align: center;
+    padding: 2rem;
+    background: #f0fdf4;
+    border: 2px solid var(--success-green);
+    border-radius: 12px;
+}
+
+.success-check {
+    font-size: 2.5rem;
+    color: var(--success-green);
+    margin-bottom: 1rem;
+    animation: bounce 1s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-15px); }
+    60% { transform: translateY(-7px); }
+}
+
+/* ========================
+   Main App Layout
+   ======================== */
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ========================
+   Sidebar
+   ======================== */
+.sidebar {
+    background: var(--sidebar-bg);
+    height: 100vh;
+    position: relative;
+    transition: width 0.1s ease;
+    flex: 0 0 auto;
+    width: 250px;
+    min-width: 150px;
+    max-width: 500px;
+}
+
+.sidebar-content-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h3 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sidebar-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-color); /* Use CSS variable for text color */
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    color: var(--accent-color);
+    border-bottom: 3px solid var(--accent-color);
+}
+
+.tab:hover {
+    color: var(--accent-color);
+}
+
+.resize-handle {
+    width: 10px;
+    background: var(--border-color);
+    cursor: ew-resize;
+    position: absolute;
+    right: -5px;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    transition: background 0.3s ease;
+}
+
+.resize-handle:hover {
+    background: var(--accent-color);
+}
+
+.history-item {
+    padding: 1rem;
+    margin-bottom: 0.7rem;
+    background: var(--ai-message-bg);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.history-item:hover {
+    background: var(--hover-bg);
+}
+
+.history-item p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.history-item small {
+    font-size: 0.75rem;
+    color: #b0b0b0;
+}
+
+.help-item {
+    margin-bottom: 1.5rem;
+}
+
+.help-item h4 {
+    color: var(--accent-color);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.help-item p {
+    font-size: 0.9rem;
+    color: var(--text-color); /* Use CSS variable for text color */
+}
+
+/* ========================
+   Chat Interface
+   ======================== */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--chat-bg);
+    min-width: 300px;
+    overflow: hidden;
+}
+
+.chat-header {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--container-bg);
+}
+
+.chat-header h2 {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.chat-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.settings-button,
+.logout-button {
+    padding: 0.5rem 1rem;
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.settings-button:hover,
+.logout-button:hover {
+    background: #0d9488;
+}
+
+.chat-box {
+    flex: 1;
+    padding: 2rem 4rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.chat-message {
+    max-width: 70%;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.chat-message.ai {
+    background: var(--ai-message-bg);
+    color: var(--text-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 0;
+}
+
+.chat-message.ai::before {
+    content: '🤖';
+    margin-right: 0.5rem;
+}
+
+.chat-message.user {
+    background: var(--user-message-bg);
+    color: #ffffff;
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
+.chat-message.user::before {
+    content: '👤';
+    margin-right: 0.5rem;
+}
+
+.message-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #b0b0b0;
+    margin-top: 0.3rem;
+    text-align: right;
+}
+
+.chat-input {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background: var(--chat-bg);
+    position: sticky;
+    bottom: 0;
+    gap: 1rem;
+}
+
+.chat-input input {
+    width: 100%;
+    max-width: 800px;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.chat-input button {
+    padding: 0.8rem 1.5rem;
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.chat-input button:hover {
+    background: #0d9488;
+}
+
+/* Settings Container */
+.settings-container {
+    background: var(--container-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.settings-container h2 {
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.theme-options {
+    margin-bottom: 2rem;
+}
+
+.theme-options label {
+    display: block;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.theme-options button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    background: var(--ai-message-bg);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.theme-options button.active {
+    background: var(--accent-color);
+    color: #ffffff; /* Ensure contrast in active state */
+}
+
+.theme-options button:hover {
+    background: var(--accent-color);
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    background: var(--ai-message-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+    background: var(--accent-color);
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+/* ========================
+   Responsive Design
+   ======================== */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+
+    .auth-container {
+        margin: 2rem auto;
+        padding: 1.5rem;
+    }
+
+    .sidebar {
+        width: 100% !important;
+        height: 40vh;
+    }
+
+    .chat-container {
+        height: 60vh;
+    }
+
+    .resize-handle {
+        width: 100%;
+        height: 10px;
+        right: 0;
+        bottom: -5px;
+        cursor: ns-resize;
+    }
+
+    .chat-box {
+        padding: 1rem;
+    }
+
+    .chat-message {
+        max-width: 85%;
+    }
+
+    .chat-input {
+        padding: 1rem;
+        flex-direction: column;
+    }
+
+    .chat-input button {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* ========================
+   Animations
+   ======================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
